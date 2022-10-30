@@ -14,7 +14,7 @@
 
 #define __vo volatile
 
-/***********************************************************STARTLORicessir Specific details***********************/
+/***********************************************************STARTL Processor Specific details***********************/
 
 /*
  * ARM cortex Mx Processor NVIC ISERx register addresses
@@ -41,6 +41,14 @@
 #define NVIC_ICER5					((__vo uint32_t*)0XE000E194)
 #define NVIC_ICER6					((__vo uint32_t*)0XE000E198)
 #define NVIC_ICER7					((__vo uint32_t*)0XE000E19C)
+
+
+/*
+ * ARM Cortex MX Processor Priority Register Addres Calculation
+ */
+
+#define NVIC_PRIO_BASE_ADDR    	    ((__vo uint32_t*)0XE000E400)
+#define NBR_PRIO_BITS_IMPLEMENTED 			4
 
 
 /*Base addresses of Flash and SRAM memories*/
@@ -173,19 +181,19 @@ typedef struct
 
 typedef struct
 {
-	__vo uint32_t EXTI_IMR1;	/*Interrupt mask register OFFSET 0x00    */
-	__vo uint32_t EXTI_EMR1;	/*Event mask register register OFFSET 0x04    */
-	__vo uint32_t EXTI_RTSR1;	/*Rising trigger selection register OFFSET 0x08    */
-	__vo uint32_t EXTI_FTSR1;	/*Falling trigger selection registe 0x0C    */
-	__vo uint32_t EXTI_SWIER1;	/*Software interrupt event register 0x10    */
-	__vo uint32_t EXTI_PR1;		/*Pending register OFFSET 0x14    */
+	__vo uint32_t IMR1;	/*Interrupt mask register OFFSET 0x00    */
+	__vo uint32_t EMR1;	/*Event mask register register OFFSET 0x04    */
+	__vo uint32_t RTSR1;	/*Rising trigger selection register OFFSET 0x08    */
+	__vo uint32_t FTSR1;	/*Falling trigger selection registe 0x0C    */
+	__vo uint32_t SWIER1;	/*Software interrupt event register 0x10    */
+	__vo uint32_t PR1;		/*Pending register OFFSET 0x14    */
 	__vo uint32_t RESERVED[2]; 	/*8 bytes reserved 0x18-1C */
-	__vo uint32_t EXTI_IMR2;	/*Interrupt mask register 2 OFFSET 0x20    */
-	__vo uint32_t EXTI_EMR2;	/*Event mask register 2 OFFSET 0x24    */
-	__vo uint32_t EXTI_RTSR2;	/*Rising trigger selection register 2 OFFSET 0x28    */
-	__vo uint32_t EXTI_FTSR2;	/*Rising trigger selection register 2 OFFSET 0x2C    */
-	__vo uint32_t EXTI_SWIER2;	/*Software interrupt event register 2 OFFSET 0x030    */
-	__vo uint32_t EXTI_PR2;		/*Pending register 2 OFFSET 0x34    */
+	__vo uint32_t IMR2;	/*Interrupt mask register 2 OFFSET 0x20    */
+	__vo uint32_t EMR2;	/*Event mask register 2 OFFSET 0x24    */
+	__vo uint32_t RTSR2;	/*Rising trigger selection register 2 OFFSET 0x28    */
+	__vo uint32_t FTSR2;	/*Rising trigger selection register 2 OFFSET 0x2C    */
+	__vo uint32_t SWIER2;	/*Software interrupt event register 2 OFFSET 0x030    */
+	__vo uint32_t PR2;		/*Pending register 2 OFFSET 0x34    */
 
 }EXTI_RegDef_t;
 
@@ -325,14 +333,14 @@ typedef struct{
 #define GPIOG_REG_RESET() 		do{ GPIOG_PCLK_EN(); 	GPIOG_PCLK_DI();}while(0)
 #define GPIOH_REG_RESET() 		do{ GPIOH_PCLK_EN(); 	GPIOH_PCLK_DI();}while(0)
 
-#define GPIO_BASEADDR_TO(x)	   ((x == GPIOA)?0:\
-								(x == GPIOB)?1:\
-								(x == GPIOC)?2:\
-								(x == GPIOD)?3:\
-								(x == GPIOE)?4:\
-								(x == GPIOF)?5:\
-								(x == GPIOG)?6:\
-								(x == GPIOH)?7:0)
+#define GPIO_BASEADDR_TO_CODE(x)	   ((x == GPIOA)?0:\
+										(x == GPIOB)?1:\
+										(x == GPIOC)?2:\
+										(x == GPIOD)?3:\
+										(x == GPIOE)?4:\
+										(x == GPIOF)?5:\
+										(x == GPIOG)?6:\
+										(x == GPIOH)?7:0)
 
 
 /*
